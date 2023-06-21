@@ -78,7 +78,7 @@ function syncCalendars() {
     if (dailyNotification && dailyNotification != '') {
       calendarEvents.forEach((event) => {
         const start = event.getStartTime();
-        if (start < now.date || start.getDate() != now.date.getDate()) return;
+        if (start.getDate() != now.date.getDate()) return;
 
         notifications.push(new Notification(configId, 'daily', dailyNotification.toString(), slackChannelName, calendarId, calendar.getName(), event.getId(), event.getTitle(), event.getStartTime(), event.getEndTime()));
       });
