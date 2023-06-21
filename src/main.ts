@@ -62,7 +62,6 @@ function syncCalendars() {
 
   const notifications : Notification[] = [];
   const now = new EventTime(new Date());
-  const tomorrow = now.addDays(1);
   const nextWeek = now.addDays(7);
   
   rows.forEach((row) => {
