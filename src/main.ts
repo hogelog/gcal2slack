@@ -57,8 +57,10 @@ function syncCalendars() {
   const spreadsheet = SpreadsheetApp.openByUrl(SHEET_URL);
   const calendarSheet = spreadsheet.getSheetByName('Calendars');
   const notificationSheet = spreadsheet.getSheetByName('Notifications');
+  const lastRow = calendarSheet.getLastRow();
+  if (lastRow <= 1) return;
 
-  const rows : any[][] =  calendarSheet.getRange(2, 1, calendarSheet.getLastRow() - 1, 5).getValues();
+  const rows : any[][] =  calendarSheet.getRange(2, 1, lastRow - 1, 5).getValues();
 
   const notifications : Notification[] = [];
   const now = new EventTime(new Date());
@@ -139,7 +141,9 @@ function notifyEvents() {
   const dailyNotifications : { [id :string] : Notification[] }= {};
   const weeklyNotifications : { [id :string] : Notification[] }= {};
   const beforeNotifications : { [id :string] : Notification[] }= {};
-  notificationSheet.getRange(2, 1, notificationSheet.getLastRow() - 1, 11).getValues().forEach((row) => {
+  const lastRow = notificationSheet.getLastRow();
+  if (lastRow <= 1) return;
+  notificationSheet.getRange(2, 1, lastRow - 1, 11).getValues().forEach((row) => {
     const notification = new Notification(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9]);
 
     var notificationTime;
